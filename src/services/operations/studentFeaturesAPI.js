@@ -67,7 +67,7 @@ export async function BuyCourse(
     );
 
     //here is i give more than 5 hour
-    let Razorpay_key = "rzp_test_CjJEAD3msWDnks";
+    let Razorpay_key = "rzp_test_yAG9qQXj2eFNFh";
     // Opening the Razorpay SDK
     const options = {
       key: Razorpay_key,
