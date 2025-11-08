@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react"
 import ProgressBar from "@ramonak/react-progress-bar"
-import { BiDotsVerticalRounded } from "react-icons/bi"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -12,24 +11,23 @@ export default function EnrolledCourses() {
 
   const [enrolledCourses, setEnrolledCourses] = useState(null)
 
+  const fetchEnrolledCourses = async () => {
+    try {
+      const res = await getUserEnrolledCourses(token) // Getting all the published and the drafted courses
+      // Filtering the published course out
+      const filterPublishCourse = res.filter((ele) => ele.status !== "Draft")
+      setEnrolledCourses(filterPublishCourse)
+    } catch (error) {
+      console.log("Could not fetch enrolled courses.")
+    }
+  }
+
+  const handleNavigateCoursePage = (course) => {
+    navigate(`/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`)
+  }
+
   useEffect(() => {
-    ;(async () => {
-      try {
-        const res = await getUserEnrolledCourses(token) // Getting all the published and the drafted courses
-
-        // Filtering the published course out
-        const filterPublishCourse = res.filter((ele) => ele.status !== "Draft")
-        // console.log(
-        //   "Viewing all the couse that is Published",
-        //   filterPublishCourse
-        // )
-
-        setEnrolledCourses(filterPublishCourse)
-      } catch (error) {
-        console.log("Could not fetch enrolled courses.")
-      }
-    })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchEnrolledCourses()
   }, [])
 
   return (
@@ -54,19 +52,10 @@ export default function EnrolledCourses() {
           </div>
           {/* Course Names */}
           {enrolledCourses.map((course, i, arr) => (
-            <div
-              className={`flex items-center border border-richblack-700 ${
-                i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"
-              }`}
-              key={i}
-            >
+            <div className={`flex items-center border border-richblack-700 ${i === arr.length - 1 ? "rounded-b-lg" : "rounded-none"}`} key={i}>
               <div
                 className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
-                onClick={() => {
-                  navigate(
-                    `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
-                  )
-                }}
+                onClick={() => handleNavigateCoursePage(course)}
               >
                 <img
                   src={course.thumbnail}

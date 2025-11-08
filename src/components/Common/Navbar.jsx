@@ -11,25 +11,6 @@ import { categories } from "../../services/apis"
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropdown"
 
-const subLinks = [
-  {
-    title: "Python",
-    link: "/catalog/python",
-  },
-  {
-    title: "javascript",
-    link: "/catalog/javascript",
-  },
-  {
-    title: "web-development",
-    link: "/catalog/web-development",
-  },
-  {
-    title: "Android Development",
-    link: "/catalog/Android Development",
-  },
-];
-
 function Navbar() {
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.profile)
@@ -39,17 +20,19 @@ function Navbar() {
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const fetchSubLinks = async () => {
+    setLoading(true)
+    try {
+      const res = await apiConnector("GET", categories.CATEGORIES_API)
+      setSubLinks(res.data.data)
+    } catch (error) {
+      console.log("Could not fetch Categories : ", error)
+    }
+    setLoading(false)
+  }
+
   useEffect(() => {
-    (async () => {
-      setLoading(true)
-      try {
-        const res = await apiConnector("GET", categories.CATEGORIES_API)
-        setSubLinks(res.data.data)
-      } catch (error) {
-        console.log("Could not fetch Categories : ", error)
-      }
-      setLoading(false)
-    })()
+    fetchSubLinks()
   }, [])
 
   // console.log("sub links", subLinks)
@@ -60,9 +43,8 @@ function Navbar() {
 
   return (
     <div
-      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
-        location.pathname !== "/" ? "bg-richblack-800" : ""
-      } transition-all duration-200`}
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""
+        } transition-all duration-200`}
     >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* Logo */}
@@ -77,11 +59,10 @@ function Navbar() {
                 {link.title === "Catalog" ? (
                   <>
                     <div
-                      className={`group relative flex cursor-pointer items-center gap-1 ${
-                        matchRoute("/catalog/:catalogName")
-                          ? "text-yellow-25"
-                          : "text-richblack-25"
-                      }`}
+                      className={`group relative flex cursor-pointer items-center gap-1 ${matchRoute("/catalog/:catalogName")
+                        ? "text-yellow-25"
+                        : "text-richblack-25"
+                        }`}
                     >
                       <p>{link.title}</p>
                       <BsChevronDown />
@@ -117,11 +98,10 @@ function Navbar() {
                 ) : (
                   <Link to={link?.path}>
                     <p
-                      className={`${
-                        matchRoute(link?.path)
-                          ? "text-yellow-25"
-                          : "text-richblack-25"
-                      }`}
+                      className={`${matchRoute(link?.path)
+                        ? "text-yellow-25"
+                        : "text-richblack-25"
+                        }`}
                     >
                       {link.title}
                     </p>

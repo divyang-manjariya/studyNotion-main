@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 
 import {
-  fetchCourseDetails,
-  getFullDetailsOfCourse,
+  getFullDetailsOfCourse
 } from "../../../../services/operations/courseDetailsAPI"
 import { setCourse, setEditCourse } from "../../../../slices/courseSlice"
 import RenderSteps from "../AddCourse/RenderSteps"
@@ -17,7 +16,7 @@ export default function EditCourse() {
   const { token } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       setLoading(true)
       const result = await getFullDetailsOfCourse(courseId, token)
       if (result?.courseDetails) {

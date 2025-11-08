@@ -39,23 +39,10 @@ export default function CourseBuilderForm() {
     let result
 
     if (editSectionName) {
-      result = await updateSection(
-        {
-          sectionName: data.sectionName,
-          sectionId: editSectionName,
-          courseId: course._id,
-        },
-        token
-      )
+      result = await updateSection({ sectionName: data.sectionName, sectionId: editSectionName, courseId: course._id, }, token)
       // console.log("edit", result)
     } else {
-      result = await createSection(
-        {
-          sectionName: data.sectionName,
-          courseId: course._id,
-        },
-        token
-      )
+      result = await createSection({ sectionName: data.sectionName, courseId: course._id, }, token)
     }
     if (result) {
       // console.log("section result", result)
