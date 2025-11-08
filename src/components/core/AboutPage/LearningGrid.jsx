@@ -1,6 +1,5 @@
-import React from "react";
-import HighlightText from "../../../components/core/HomePage/HighlightText";
 import CTAButton from "../../../components/core/HomePage/Button";
+import HighlightText from "../../../components/core/HomePage/HighlightText";
 
 const LearningGridArray = [
   {
@@ -51,13 +50,12 @@ const LearningGrid = () => {
         return (
           <div
             key={i}
-            className={`${i === 0 && "xl:col-span-2 xl:h-[294px]"}  ${
-              card.order % 2 === 1
-                ? "bg-richblack-700 h-[294px]"
-                : card.order % 2 === 0
+            className={`${i === 0 && "xl:col-span-2 xl:h-[294px]"}  ${card.order % 2 === 1
+              ? "bg-richblack-700 h-[294px]"
+              : card.order % 2 === 0
                 ? "bg-richblack-800 h-[294px]"
                 : "bg-transparent"
-            } ${card.order === 3 && "xl:col-start-2"}  `}
+              } ${card.order === 3 && "xl:col-start-2"}  `}
           >
             {card.order < 0 ? (
               <div className="xl:w-[90%] flex flex-col gap-3 pb-10 xl:pb-0">

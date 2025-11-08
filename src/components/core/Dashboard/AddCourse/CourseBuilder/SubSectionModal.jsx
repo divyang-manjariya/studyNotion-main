@@ -27,10 +27,6 @@ export default function SubSectionModal({
     getValues,
   } = useForm()
 
-  // console.log("view", view)
-  // console.log("edit", edit)
-  // console.log("add", add)
-
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const { token } = useSelector((state) => state.auth)
@@ -49,11 +45,7 @@ export default function SubSectionModal({
   const isFormUpdated = () => {
     const currentValues = getValues()
     // console.log("changes after editing form values:", currentValues)
-    if (
-      currentValues.lectureTitle !== modalData.title ||
-      currentValues.lectureDesc !== modalData.description ||
-      currentValues.lectureVideo !== modalData.videoUrl
-    ) {
+    if (currentValues.lectureTitle !== modalData.title || currentValues.lectureDesc !== modalData.description || currentValues.lectureVideo !== modalData.videoUrl) {
       return true
     }
     return false
@@ -92,7 +84,6 @@ export default function SubSectionModal({
   }
 
   const onSubmit = async (data) => {
-    // console.log(data)
     if (view) return
 
     if (edit) {

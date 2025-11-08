@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
-import "video-react/dist/video-react.css"
 import { useLocation } from "react-router-dom"
 import { BigPlayButton, Player } from "video-react"
+import "video-react/dist/video-react.css"
 
 import { markLectureAsComplete } from "../../../services/operations/courseDetailsAPI"
 import { updateCompletedLectures } from "../../../slices/viewCourseSlice"
@@ -26,7 +26,7 @@ const VideoDetails = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       if (!courseSectionData.length) return
       if (!courseId && !sectionId && !subSectionId) {
         navigate(`/dashboard/enrolled-courses`)

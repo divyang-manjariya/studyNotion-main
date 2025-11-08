@@ -1,6 +1,5 @@
-import React from "react";
-import { FooterLink2 } from "../../data/footer-links";
 import { Link } from "react-router-dom";
+import { FooterLink2 } from "../../data/footer-links";
 
 // Images
 import Logo from "../../assets/Logo/Logo-Full-Light.png";
@@ -158,11 +157,10 @@ const Footer = () => {
               return (
                 <div
                   key={i}
-                  className={` ${
-                    BottomFooter.length - 1 === i
-                      ? ""
-                      : "border-r border-richblack-700 cursor-pointer hover:text-richblack-50 transition-all duration-200"
-                  } px-3 `}
+                  className={` ${BottomFooter.length - 1 === i
+                    ? ""
+                    : "border-r border-richblack-700 cursor-pointer hover:text-richblack-50 transition-all duration-200"
+                    } px-3 `}
                 >
                   <Link to={ele.split(" ").join("-").toLocaleLowerCase()}>
                     {ele}

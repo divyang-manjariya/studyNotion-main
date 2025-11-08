@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import ReactStars from "react-rating-stars-component"
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -11,7 +11,7 @@ import "../../App.css"
 // Icons
 import { FaStar } from "react-icons/fa"
 // Import required modules
-import { Autoplay, Pagination, FreeMode } from 'swiper/modules';
+import { Autoplay, FreeMode, Pagination } from 'swiper/modules'
 
 // Get apiFunction and the endpoint
 import { apiConnector } from "../../services/apiConnector"
@@ -20,17 +20,15 @@ import { ratingsEndpoints } from "../../services/apis"
 function ReviewSlider() {
   const [reviews, setReviews] = useState([])
 
+  const fetchReviews = async () => {
+    const { data } = await apiConnector("GET", ratingsEndpoints.REVIEWS_DETAILS_API)
+    if (data?.success) {
+      setReviews(data?.data)
+    }
+  }
 
   useEffect(() => {
-    ;(async () => {
-      const { data } = await apiConnector(
-        "GET",
-        ratingsEndpoints.REVIEWS_DETAILS_API
-      )
-      if (data?.success) {
-        setReviews(data?.data)
-      }
-    })()
+    fetchReviews()
   }, [])
 
   // console.log(reviews)
@@ -75,7 +73,7 @@ function ReviewSlider() {
                     {review?.review.length > 40
                       ? `${review?.review.substring(0, 40)} ...`
                       : `${review?.review}`}
-                </p>
+                  </p>
 
                   <div className="flex items-center gap-2 ">
                     <h3 className="font-semibold text-yellow-100">
